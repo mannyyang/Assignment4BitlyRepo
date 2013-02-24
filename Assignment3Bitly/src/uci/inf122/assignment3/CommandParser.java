@@ -1,53 +1,75 @@
 package uci.inf122.assignment3;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 import uci.inf122.assignment3.main.BitlyConsole;
 
 public class CommandParser 
 {
 	private BitlyCommandHandler bch;
-	private BufferedReader inConsole;
-	
 	private BitlyConsole console;
 	
 	public CommandParser()
 	{
 		bch = new BitlyCommandHandler();
-		console = new BitlyConsole();
 	}
 	
 	public void run()
 	{
-		inConsole = new BufferedReader(new InputStreamReader(System.in));
-		print("Welcome to the Bitly Watcher! Enter in a command to begin.");
+		console = new BitlyConsole(this);
+		console.run();
+	}
+	
+	public boolean authenticate(String command)
+	{
+		String c = "";
+		boolean isCommand = false;
 		
-		while(true)
+		if (command.contains(" "))
 		{
-			try 
-			{
-				String in = inConsole.readLine();
-				
-			} 
-			catch (IOException e) 
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			c = command.substring(0, command.indexOf(' ')).toUpperCase();
+		}
+		else
+		{
+			c = command.toUpperCase();
 		}
 		
-	}
-	
-	public String authenticate(String command)
-	{
-		return "";
-	}
-	
-	public void print(String s)
-	{
-		System.out.println(s);
+		if (c.equals(Commands.LOGIN.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.LOGOUT.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.BITMARK.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.EXPAND.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.WATCH.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.UNWATCH.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.HOUR.toString()))
+		{
+			isCommand = true;
+		}
+		else if (c.equals(Commands.WEEK.toString()))
+		{
+			isCommand = true;
+		}
+		else
+		{
+			isCommand = false;
+		}
+		
+		return isCommand;
 	}
 	
 }
