@@ -1,5 +1,10 @@
 package uci.inf122.assignment3;
 
-public class BitlyCommandHandler {
+public class BitlyCommandHandler 
+{
+	public BitlyCommandHandler()
+	{
+		
+	}
 
 }
