@@ -16,7 +16,7 @@ public class BitMarkCommand implements Command
 	
 	public String execute(BitlyCommandHandler bch) 
 	{
-		String results = "wot";
+		String results = "";
 		
 		if (!bch.getLoggedIn())
 		{
@@ -26,7 +26,16 @@ public class BitMarkCommand implements Command
 		{
 			xml = bch.getBitMark(longURL);
 			xmlParser = new XMLParser(xml);
-			results = xmlParser.getInfo("hash");
+			String status = xmlParser.getInfo("status_txt");
+			
+			if (!status.equals("OK"))
+			{
+				results = "Invalid URL format! Please try again.";
+			}
+			else
+			{
+				results = xmlParser.getInfo("url");
+			}
 		}
 		
 		return results;

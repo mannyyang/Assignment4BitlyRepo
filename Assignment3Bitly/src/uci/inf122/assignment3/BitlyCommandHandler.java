@@ -88,7 +88,38 @@ public class BitlyCommandHandler
 		catch (IOException e) 
 		{
 			e.printStackTrace();
-		}
+		} 
+
+		return result;
+	}
+	
+	public String expand(String shortURL)
+	{
+		String stringURL = "https://api-ssl.bitly.com/v3/expand";
+		String accessToken = token.getToken();
+		String charset = "UTF-8";
+		String format = "xml";
+		String result = "";
+		
+		try 
+		{
+			String queryToken = String.format("access_token=%s&shortUrl=%s&format=%s",
+					URLEncoder.encode(accessToken, charset),
+					URLEncoder.encode(shortURL, charset),
+					URLEncoder.encode(format, charset));
+
+			url = new URL(stringURL + "?" + queryToken);
+			
+			result = url.toString();
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		} 
 
 		return result;
 	}

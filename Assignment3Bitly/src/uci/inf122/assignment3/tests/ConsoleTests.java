@@ -25,8 +25,14 @@ public class ConsoleTests {
 		assertEquals("Result", true, cp.authenticate("LOGIN Manny1 pass123"));
 		
 		assertEquals("Result", true, cp.authenticate("logout"));
-		assertEquals("Result", true, cp.authenticate("bitmark"));
-		assertEquals("Result", true, cp.authenticate("expand"));
+		assertEquals("Result", false, cp.authenticate("bitmark"));
+		assertEquals("Result", false, cp.authenticate("bitmark  "));
+		assertEquals("Result", true, cp.authenticate("bitmark http://www.google.com"));
+		
+		assertEquals("Result", false, cp.authenticate("expand"));
+		assertEquals("Result", false, cp.authenticate("expand  "));
+		assertEquals("Result", true, cp.authenticate("expand http://bit.ly/YvQgJf"));
+		
 		assertEquals("Result", true, cp.authenticate("watch"));
 		assertEquals("Result", true, cp.authenticate("unwatch"));
 		assertEquals("Result", true, cp.authenticate("hour"));

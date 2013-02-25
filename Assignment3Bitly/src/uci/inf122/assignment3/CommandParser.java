@@ -2,6 +2,7 @@ package uci.inf122.assignment3;
 
 import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.Command;
+import uci.inf122.assignment3.commands.ExpandCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
 import uci.inf122.assignment3.main.BitlyConsole;
@@ -68,7 +69,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.BITMARK.toString()))
 		{
-			if (!rest.contains(" "))
+			if (!rest.contains(".com"))
 			{
 				isCommand = false;
 			}
@@ -80,7 +81,15 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.EXPAND.toString()))
 		{
-			isCommand = true;
+			if (rest.length() < 3)
+			{
+				isCommand = false;
+			}
+			else
+			{
+				currCommand = new ExpandCommand(rest);
+				isCommand = true; 
+			}
 		}
 		else if (c.equals(Commands.WATCH.toString()))
 		{
