@@ -2,9 +2,11 @@ package uci.inf122.assignment3.tests;
 
 import static org.junit.Assert.*;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import uci.inf122.assignment3.CommandParser;
+import uci.inf122.assignment3.main.BitlyConsole;
 
 public class ConsoleTests {
 
@@ -29,6 +31,13 @@ public class ConsoleTests {
 		assertEquals("Result", true, cp.authenticate("unwatch"));
 		assertEquals("Result", true, cp.authenticate("hour"));
 		assertEquals("Result", true, cp.authenticate("week"));
+	}
+	
+	@Ignore
+	public void consoleTest()
+	{
+		CommandParser cp = new CommandParser();
+		cp.run();
 	}
 
 }

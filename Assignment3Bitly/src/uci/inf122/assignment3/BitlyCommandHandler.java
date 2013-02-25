@@ -61,14 +61,30 @@ public class BitlyCommandHandler
 		return accessToken;
 	}
 	
+	public String logout()
+	{
+		
+		return null;
+	}
+	
 	public void setOAuthToken(OAuth token)
 	{
 		this.token = token;
 	}
 	
+	public OAuth getOAuthToken()
+	{
+		return token;
+	}
+	
 	public void setLoggedIn(boolean loggedIn)
 	{
 		this.loggedIn = loggedIn;
+	}
+	
+	public boolean getLoggedIn()
+	{
+		return loggedIn;
 	}
 
 }

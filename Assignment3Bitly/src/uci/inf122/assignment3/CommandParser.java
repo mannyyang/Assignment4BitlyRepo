@@ -2,6 +2,7 @@ package uci.inf122.assignment3;
 
 import uci.inf122.assignment3.commands.Command;
 import uci.inf122.assignment3.commands.LoginCommand;
+import uci.inf122.assignment3.commands.LogoutCommand;
 import uci.inf122.assignment3.main.BitlyConsole;
 
 public class CommandParser 
@@ -61,6 +62,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.LOGOUT.toString()))
 		{
+			currCommand = new LogoutCommand();
 			isCommand = true;
 		}
 		else if (c.equals(Commands.BITMARK.toString()))

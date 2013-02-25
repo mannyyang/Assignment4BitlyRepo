@@ -6,12 +6,13 @@ import org.junit.Test;
 
 import uci.inf122.assignment3.BitlyCommandHandler;
 import uci.inf122.assignment3.commands.LoginCommand;
+import uci.inf122.assignment3.commands.LogoutCommand;
 
 public class CommandTests 
 {
 
 	@Test
-	public void LoginTest() 
+	public void LoginLogoutTest() 
 	{
 		BitlyCommandHandler bch = new BitlyCommandHandler();
 		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
@@ -19,6 +20,10 @@ public class CommandTests
 		lgC = new LoginCommand("heyitsmanuel@gmail.com", "wrongpassword");
 		assertEquals("Result", "Invalid." +
 					"\nID/Password combination is incorrect. Please try again.", bch.execute(lgC));
+		LogoutCommand logoutC = new LogoutCommand();
+		assertEquals("Result", "User is logged out.", bch.execute(logoutC));
+		assertEquals("Result", "No user is currently logged in. Please login first.", bch.execute(logoutC));
 	}
+	
 
 }
