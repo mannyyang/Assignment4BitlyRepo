@@ -11,5 +11,13 @@ public class OAuth
 		this.accessToken = accessToken;
 	}
 	
+	public String getUser()
+	{
+		return user;
+	}
 	
+	public String getToken()
+	{
+		return accessToken;
+	}
 }

@@ -1,5 +1,6 @@
 package uci.inf122.assignment3;
 
+import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.Command;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
@@ -67,7 +68,15 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.BITMARK.toString()))
 		{
-			isCommand = true;
+			if (!rest.contains(" "))
+			{
+				isCommand = false;
+			}
+			else
+			{
+				currCommand = new BitMarkCommand(rest);
+				isCommand = true; 
+			}
 		}
 		else if (c.equals(Commands.EXPAND.toString()))
 		{
@@ -95,6 +104,11 @@ public class CommandParser
 		}
 
 		return isCommand;
+	}
+
+	public void setCommand(Command command)
+	{
+		currCommand = command;
 	}
 
 	public String executeCommand()

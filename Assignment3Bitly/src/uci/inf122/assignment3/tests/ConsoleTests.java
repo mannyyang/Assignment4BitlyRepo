@@ -6,7 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import uci.inf122.assignment3.CommandParser;
-import uci.inf122.assignment3.main.BitlyConsole;
+import uci.inf122.assignment3.commands.LogoutCommand;
 
 public class ConsoleTests {
 
@@ -33,11 +33,12 @@ public class ConsoleTests {
 		assertEquals("Result", true, cp.authenticate("week"));
 	}
 	
-	@Ignore
+	@Test
 	public void consoleTest()
 	{
 		CommandParser cp = new CommandParser();
-		cp.run();
+		cp.setCommand(new LogoutCommand());
+		assertEquals("Result", "No user is currently logged in. Please login first.", cp.executeCommand());
 	}
 
 }

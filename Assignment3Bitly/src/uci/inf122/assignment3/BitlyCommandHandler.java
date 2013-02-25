@@ -4,8 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 
 import sun.misc.BASE64Encoder;
 
@@ -14,14 +16,14 @@ import uci.inf122.assignment3.commands.Command;
 @SuppressWarnings("restriction")
 public class BitlyCommandHandler 
 {
-//	private final String clientID = "5349b46c53033e0ef55e03426203469e2bdae2a5";
-//	private final String clientSecret = "f91e4e4196b86f9f38444156e4162617ea6b1ae4";
+	//	private final String clientID = "5349b46c53033e0ef55e03426203469e2bdae2a5";
+	//	private final String clientSecret = "f91e4e4196b86f9f38444156e4162617ea6b1ae4";
 
 	private URL url;
 	private HttpURLConnection connection;
 	private OAuth token;
 	private boolean loggedIn = false;
-	
+
 	public BitlyCommandHandler()
 	{
 
@@ -35,13 +37,12 @@ public class BitlyCommandHandler
 
 	public String login(String user, String pass)
 	{
-		final String urlString = "https://api-ssl.bitly.com/oauth/access_token";
 		BASE64Encoder encoder = new BASE64Encoder();
 		String accessToken = "";
 
 		try 
 		{
-			url = new URL (urlString);
+			url = new URL ("https://api-ssl.bitly.com/oauth/access_token");
 			byte[] encodedPassword = (user+":"+pass).getBytes();
 			String encoding = encoder.encode (encodedPassword);
 
@@ -49,7 +50,7 @@ public class BitlyCommandHandler
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
 			connection.setRequestProperty  ("Authorization", "Basic " + encoding);
-			InputStream content = (InputStream)connection.getInputStream();
+			InputStream content = connection.getInputStream();
 			BufferedReader in = new BufferedReader (new InputStreamReader (content));
 			accessToken = in.readLine();
 		} 
@@ -57,31 +58,64 @@ public class BitlyCommandHandler
 		{
 			accessToken = "Invalid";
 		}
-		
+
 		return accessToken;
 	}
-	
-	public String logout()
+
+	public String getBitMark(String longURL)
 	{
-		
-		return null;
+		String stringURL = "https://api-ssl.bitly.com/v3/shorten";
+		String accessToken = token.getToken();
+		String charset = "UTF-8";
+		String format = "xml";
+		String result = "";
+ 
+		try 
+		{
+			String queryToken = String.format("access_token=%s&longUrl=%s&format=%s",
+					URLEncoder.encode(accessToken, charset),
+					URLEncoder.encode(longURL, charset),
+					URLEncoder.encode(format, charset));
+			
+			url = new URL(stringURL + "?" + queryToken);
+			
+			connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestProperty("Accept-Charset", charset);
+			InputStream content = connection.getInputStream();
+			BufferedReader in = new BufferedReader (new InputStreamReader (content));
+			String line = "";
+			while ((line = in.readLine()) != null)
+			{
+				 result += "\n" + line;
+			}
+		} 
+		catch (UnsupportedEncodingException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+
+		return result;
 	}
-	
+
 	public void setOAuthToken(OAuth token)
 	{
 		this.token = token;
 	}
-	
+
 	public OAuth getOAuthToken()
 	{
 		return token;
 	}
-	
+
 	public void setLoggedIn(boolean loggedIn)
 	{
 		this.loggedIn = loggedIn;
 	}
-	
+
 	public boolean getLoggedIn()
 	{
 		return loggedIn;
