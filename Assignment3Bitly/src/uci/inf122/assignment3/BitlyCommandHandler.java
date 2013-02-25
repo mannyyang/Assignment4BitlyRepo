@@ -20,6 +20,7 @@ public class BitlyCommandHandler
 	private URL url;
 	private HttpURLConnection connection;
 	private OAuth token;
+	private boolean loggedIn = false;
 	
 	public BitlyCommandHandler()
 	{
@@ -28,8 +29,8 @@ public class BitlyCommandHandler
 
 	public String execute(Command command)
 	{
-		command.execute(this);
-		return "";
+		String result = command.execute(this);
+		return result;
 	}
 
 	public String login(String user, String pass)
@@ -63,6 +64,11 @@ public class BitlyCommandHandler
 	public void setOAuthToken(OAuth token)
 	{
 		this.token = token;
+	}
+	
+	public void setLoggedIn(boolean loggedIn)
+	{
+		this.loggedIn = loggedIn;
 	}
 
 }

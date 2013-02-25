@@ -4,5 +4,5 @@ import uci.inf122.assignment3.BitlyCommandHandler;
 
 public interface Command 
 {
-	void execute(BitlyCommandHandler bch);
+	String execute(BitlyCommandHandler bch);
 }

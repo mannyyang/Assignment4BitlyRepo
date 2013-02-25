@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import uci.inf122.assignment3.BitlyCommandHandler;
 
-public class HTTPTests {
-
+public class HTTPTests 
+{
 	@Test
 	public void connectionTest() throws IOException 
 	{
