@@ -29,6 +29,7 @@ public class BitlyConsole
 				
 				if (cp.authenticate(in))
 				{
+					cp.executeCommand();
 					break;
 				}
 				else

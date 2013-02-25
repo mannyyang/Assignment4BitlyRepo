@@ -97,7 +97,6 @@ public class CommandParser
 
 	public String executeCommand()
 	{
-		
-		return "";
+		return bch.execute(currCommand);
 	}
 }

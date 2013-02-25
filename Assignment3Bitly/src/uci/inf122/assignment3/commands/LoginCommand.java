@@ -1,6 +1,7 @@
 package uci.inf122.assignment3.commands;
 
 import uci.inf122.assignment3.BitlyCommandHandler;
+import uci.inf122.assignment3.OAuth;
 
 public class LoginCommand implements Command
 {
@@ -16,6 +17,12 @@ public class LoginCommand implements Command
 	@Override
 	public void execute(BitlyCommandHandler bch) 
 	{
+		bch.login(user, pass);
+	}
+	
+	public OAuth createKey()
+	{
+		return null;
 		
 	}
 

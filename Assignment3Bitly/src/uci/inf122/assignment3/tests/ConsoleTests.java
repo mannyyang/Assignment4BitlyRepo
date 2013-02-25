@@ -20,6 +20,7 @@ public class ConsoleTests {
 		assertEquals("Result", false, cp.authenticate("login user"));
 		assertEquals("Result", false, cp.authenticate("login user "));
 		assertEquals("Result", false, cp.authenticate("   login"));
+		assertEquals("Result", true, cp.authenticate("LOGIN Manny1 pass123"));
 		
 		assertEquals("Result", true, cp.authenticate("logout"));
 		assertEquals("Result", true, cp.authenticate("bitmark"));
