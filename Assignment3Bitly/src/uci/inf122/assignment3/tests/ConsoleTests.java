@@ -35,7 +35,13 @@ public class ConsoleTests
 		assertEquals("Result", true, cp.authenticate("expand http://bit.ly/YvQgJf"));
 		
 		assertEquals("Result", false, cp.authenticate("watch"));
-		assertEquals("Result", true, cp.authenticate("unwatch"));
+		assertEquals("Result", false, cp.authenticate("watch   "));
+		assertEquals("Result", true, cp.authenticate("watch http://bit.ly/YvQgJf"));
+		
+		assertEquals("Result", false, cp.authenticate("unwatch"));
+		assertEquals("Result", false, cp.authenticate("unwatch   "));
+		assertEquals("Result", true, cp.authenticate("unwatch http://bit.ly/YvQgJf"));
+		
 		assertEquals("Result", true, cp.authenticate("hour"));
 		assertEquals("Result", true, cp.authenticate("week"));
 	}

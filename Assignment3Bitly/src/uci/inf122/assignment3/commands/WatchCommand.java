@@ -26,9 +26,10 @@ public class WatchCommand implements Command
 		{
 			xml = bch.verifyBitly(shortURL);
 			xmlParser = new XMLParser(xml);
+			
 			try
 			{
-				xmlParser.getInfo("long_url");
+				xmlParser.getInfo("global_hash");
 				bch.addBitly(shortURL);
 				results = "Bitly: " + shortURL + " added to the Watch list.";
 			}

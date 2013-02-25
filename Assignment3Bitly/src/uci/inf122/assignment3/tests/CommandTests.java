@@ -10,6 +10,8 @@ import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.ExpandCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
+import uci.inf122.assignment3.commands.UnwatchCommand;
+import uci.inf122.assignment3.commands.WatchCommand;
 
 public class CommandTests 
 {
@@ -52,7 +54,29 @@ public class CommandTests
 		assertEquals("Result", "https://www.google.com/", bch.execute(ec));
 		ExpandCommand ecBad = new ExpandCommand("http://bit.ly/uhohspagetthio");
 		assertEquals("Result", "Bitly URL does not exist! Please try again.", bch.execute(ecBad));
-
 	}
 
+	@Test
+	public void WatchUnwatchTest()
+	{
+		BitlyCommandHandler bch = new BitlyCommandHandler();
+		WatchCommand wc = new WatchCommand("http://bit.ly/YvQgJf");
+		UnwatchCommand uwc = new UnwatchCommand("http://yhoo.it/Wm8MUR");
+		assertEquals("Result", "Error. No user is currently logged in. Please login to get started.", bch.execute(wc));
+		assertEquals("Result", "Error. No user is currently logged in. Please login to get started.", bch.execute(uwc));
+		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
+		bch.execute(lgC);
+		assertEquals("Result", "Bitly: http://bit.ly/YvQgJf added to the Watch list.", bch.execute(wc));
+		WatchCommand wcBad = new WatchCommand("http://bit.ly/uhohspagetthio");
+		assertEquals("Result", "Bitly URL does not exist! Please try again.", bch.execute(wcBad));
+		WatchCommand wc1 = new WatchCommand("http://yhoo.it/Wm8MUR");
+		bch.execute(wc1);
+		WatchCommand wc2 = new WatchCommand("http://on.natgeo.com/YheKb9");
+		bch.execute(wc2);
+		assertEquals("Result", "The Bitly link: http://yhoo.it/Wm8MUR has been removed from the watch list.", bch.execute(uwc));
+		UnwatchCommand uwcBad = new UnwatchCommand("http://bit.ly/THISISABADURL");
+		assertEquals("Result", "The Bitly link does not exist in the list. Please try again.", bch.execute(uwcBad));
+		
+	}
+	
 }

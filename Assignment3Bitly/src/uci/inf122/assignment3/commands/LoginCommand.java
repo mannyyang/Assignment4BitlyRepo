@@ -30,6 +30,7 @@ public class LoginCommand implements Command
 		{
 			bch.setOAuthToken(createKey());
 			bch.setLoggedIn(true);
+			bch.clearList();
 			result = "Welcome!";
 		}
 		return result;

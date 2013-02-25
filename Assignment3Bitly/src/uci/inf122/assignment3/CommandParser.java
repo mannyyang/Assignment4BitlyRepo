@@ -5,6 +5,7 @@ import uci.inf122.assignment3.commands.Command;
 import uci.inf122.assignment3.commands.ExpandCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
+import uci.inf122.assignment3.commands.UnwatchCommand;
 import uci.inf122.assignment3.commands.WatchCommand;
 import uci.inf122.assignment3.main.BitlyConsole;
 
@@ -82,7 +83,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.EXPAND.toString()))
 		{
-			if (rest.length() < 3)
+			if (rest.length() < 4)
 			{
 				isCommand = false;
 			}
@@ -94,7 +95,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.WATCH.toString()))
 		{
-			if (rest.length() < 3)
+			if (rest.length() < 4)
 			{
 				isCommand = false;
 			}
@@ -106,7 +107,15 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.UNWATCH.toString()))
 		{
-			isCommand = true;
+			if (rest.length() < 4)
+			{
+				isCommand = false;
+			}
+			else
+			{
+				currCommand = new UnwatchCommand(rest);
+				isCommand = true; 
+			}
 		}
 		else if (c.equals(Commands.HOUR.toString()))
 		{

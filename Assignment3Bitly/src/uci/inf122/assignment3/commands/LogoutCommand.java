@@ -17,6 +17,7 @@ public class LogoutCommand implements Command
 		{
 			bch.setOAuthToken(null);
 			bch.setLoggedIn(false);
+			bch.clearList();
 			result = "User is logged out.";
 		}
 		else

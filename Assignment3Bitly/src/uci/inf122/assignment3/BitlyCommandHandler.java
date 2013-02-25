@@ -79,8 +79,22 @@ public class BitlyCommandHandler
 
 	public String verifyBitly(String shortURL)
 	{
-		String result = getURL("info", "shortURL", shortURL);
+		String result = getURL("info", "shortUrl", shortURL);
 		return result;
+	}
+	
+	public boolean removeBitly(String shortURL)
+	{
+		for (int i = 0; i < bitlyList.size(); i++)
+		{
+			if (shortURL.equals(bitlyList.get(i)))
+			{
+				bitlyList.remove(i);
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public String getURL(String URLAction, String URLType, String actualURL)
@@ -119,11 +133,6 @@ public class BitlyCommandHandler
 		this.token = token;
 	}
 
-	public OAuth getOAuthToken()
-	{
-		return token;
-	}
-
 	public void setLoggedIn(boolean loggedIn)
 	{
 		this.loggedIn = loggedIn;
@@ -137,5 +146,10 @@ public class BitlyCommandHandler
 	public void addBitly(String shortURL)
 	{
 		bitlyList.add(shortURL);
+	}
+	
+	public void clearList()
+	{
+		bitlyList.clear();
 	}
 }
