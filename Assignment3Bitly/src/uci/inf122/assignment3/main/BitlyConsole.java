@@ -33,7 +33,15 @@ public class BitlyConsole
 				}
 				else
 				{
-					break;
+					print("Invalid Format! Please enter a command based on these formats:" +
+							"\nLOGIN [username] [password]" +
+							"\nLOGOUT" +
+							"\nBITMARK [URL]" +
+							"\nEXPAND [shortened_URL]" +
+							"\nWATCH [shortened_URL]" +
+							"\nUNWATCH [shortened_URL]" +
+							"\nHOUR" +
+							"\nWEEK");
 				}
 				
 			} 

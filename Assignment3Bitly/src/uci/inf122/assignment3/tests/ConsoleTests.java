@@ -13,11 +13,14 @@ public class ConsoleTests {
 	{
 		CommandParser cp = new CommandParser();
 		
-		assertEquals("Result", true, cp.authenticate("login"));
-		assertEquals("Result", true, cp.authenticate("LOGIN"));
-		assertEquals("Result", true, cp.authenticate("login      "));
-		assertEquals("Result", true, cp.authenticate("login user pass"));
+		assertEquals("Result", false, cp.authenticate("login"));
+		assertEquals("Result", false, cp.authenticate("LOGIN"));
+		assertEquals("Result", false, cp.authenticate("login      "));
+		assertEquals("Result", true, cp.authenticate("loGiN user pass"));
+		assertEquals("Result", false, cp.authenticate("login user"));
+		assertEquals("Result", false, cp.authenticate("login user "));
 		assertEquals("Result", false, cp.authenticate("   login"));
+		
 		assertEquals("Result", true, cp.authenticate("logout"));
 		assertEquals("Result", true, cp.authenticate("bitmark"));
 		assertEquals("Result", true, cp.authenticate("expand"));
