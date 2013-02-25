@@ -69,25 +69,17 @@ public class BitlyCommandHandler
 		String charset = "UTF-8";
 		String format = "xml";
 		String result = "";
- 
+		
 		try 
 		{
 			String queryToken = String.format("access_token=%s&longUrl=%s&format=%s",
 					URLEncoder.encode(accessToken, charset),
 					URLEncoder.encode(longURL, charset),
 					URLEncoder.encode(format, charset));
-			
+
 			url = new URL(stringURL + "?" + queryToken);
 			
-			connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestProperty("Accept-Charset", charset);
-			InputStream content = connection.getInputStream();
-			BufferedReader in = new BufferedReader (new InputStreamReader (content));
-			String line = "";
-			while ((line = in.readLine()) != null)
-			{
-				 result += "\n" + line;
-			}
+			result = url.toString();
 		} 
 		catch (UnsupportedEncodingException e) 
 		{

@@ -6,6 +6,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import uci.inf122.assignment3.BitlyCommandHandler;
+import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
 
@@ -32,7 +33,8 @@ public class CommandTests
 		BitlyCommandHandler bch = new BitlyCommandHandler();
 		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
 		bch.execute(lgC);
-		assertEquals("Result", "", bch.getBitMark("httpsdf://www.google.com"));
+		BitMarkCommand bmc = new BitMarkCommand("https://www.google.com");
+		assertEquals("Result", "", bch.execute(bmc));
 	}
 
 }
