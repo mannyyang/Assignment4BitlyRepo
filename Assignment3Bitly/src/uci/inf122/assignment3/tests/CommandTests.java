@@ -16,6 +16,9 @@ public class CommandTests
 		BitlyCommandHandler bch = new BitlyCommandHandler();
 		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
 		assertEquals("Result", "Welcome!", bch.execute(lgC));
+		lgC = new LoginCommand("heyitsmanuel@gmail.com", "wrongpassword");
+		assertEquals("Result", "Invalid." +
+					"\nID/Password combination is incorrect. Please try again.", bch.execute(lgC));
 	}
 
 }

@@ -24,7 +24,7 @@ public class LoginCommand implements Command
 		if (accessToken.equals("Invalid"))
 		{
 			result = "Invalid." +
-					"ID/Password combination is incorrect. Please try again.";
+					"\nID/Password combination is incorrect. Please try again.";
 		}
 		else
 		{
