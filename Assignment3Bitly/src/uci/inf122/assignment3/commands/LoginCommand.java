@@ -37,7 +37,7 @@ public class LoginCommand implements Command
 	
 	public OAuth createKey()
 	{
-		OAuth oAuth = new OAuth(user, accessToken);
+		OAuth oAuth = new OAuth(accessToken);
 		return oAuth;
 	}
 

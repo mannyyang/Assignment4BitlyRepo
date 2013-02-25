@@ -8,7 +8,8 @@ import org.junit.Test;
 import uci.inf122.assignment3.CommandParser;
 import uci.inf122.assignment3.commands.LogoutCommand;
 
-public class ConsoleTests {
+public class ConsoleTests 
+{
 
 	@Test
 	public void authenticateTest() 
