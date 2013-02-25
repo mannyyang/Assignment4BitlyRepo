@@ -8,6 +8,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import sun.misc.BASE64Encoder;
 
@@ -24,9 +25,11 @@ public class BitlyCommandHandler
 	private OAuth token;
 	private boolean loggedIn = false;
 
+	private ArrayList<String> bitlyList;
+	
 	public BitlyCommandHandler()
 	{
-
+		bitlyList = new ArrayList<String>();
 	}
 
 	public String execute(Command command)
@@ -64,7 +67,25 @@ public class BitlyCommandHandler
 
 	public String getBitMark(String longURL)
 	{
-		String stringURL = "https://api-ssl.bitly.com/v3/shorten";
+		String result = getURL("shorten", "longUrl", longURL);
+		return result;
+	}
+	
+	public String expand(String shortURL)
+	{
+		String result = getURL("expand", "shortUrl", shortURL);
+		return result;
+	}
+
+	public String verifyBitly(String shortURL)
+	{
+		String result = getURL("info", "shortURL", shortURL);
+		return result;
+	}
+	
+	public String getURL(String URLAction, String URLType, String actualURL)
+	{
+		String stringURL = "https://api-ssl.bitly.com/v3/" + URLAction;
 		String accessToken = token.getToken();
 		String charset = "UTF-8";
 		String format = "xml";
@@ -72,9 +93,9 @@ public class BitlyCommandHandler
 		
 		try 
 		{
-			String queryToken = String.format("access_token=%s&longUrl=%s&format=%s",
+			String queryToken = String.format("access_token=%s&"+URLType+"=%s&format=%s",
 					URLEncoder.encode(accessToken, charset),
-					URLEncoder.encode(longURL, charset),
+					URLEncoder.encode(actualURL, charset),
 					URLEncoder.encode(format, charset));
 
 			url = new URL(stringURL + "?" + queryToken);
@@ -93,37 +114,6 @@ public class BitlyCommandHandler
 		return result;
 	}
 	
-	public String expand(String shortURL)
-	{
-		String stringURL = "https://api-ssl.bitly.com/v3/expand";
-		String accessToken = token.getToken();
-		String charset = "UTF-8";
-		String format = "xml";
-		String result = "";
-		
-		try 
-		{
-			String queryToken = String.format("access_token=%s&shortUrl=%s&format=%s",
-					URLEncoder.encode(accessToken, charset),
-					URLEncoder.encode(shortURL, charset),
-					URLEncoder.encode(format, charset));
-
-			url = new URL(stringURL + "?" + queryToken);
-			
-			result = url.toString();
-		} 
-		catch (UnsupportedEncodingException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-
-		return result;
-	}
-
 	public void setOAuthToken(OAuth token)
 	{
 		this.token = token;
@@ -144,4 +134,8 @@ public class BitlyCommandHandler
 		return loggedIn;
 	}
 
+	public void addBitly(String shortURL)
+	{
+		bitlyList.add(shortURL);
+	}
 }
