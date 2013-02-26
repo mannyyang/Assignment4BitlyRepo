@@ -13,6 +13,7 @@ import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
 import uci.inf122.assignment3.commands.UnwatchCommand;
 import uci.inf122.assignment3.commands.WatchCommand;
+import uci.inf122.assignment3.commands.WeekCommand;
 
 public class CommandTests 
 {
@@ -83,8 +84,12 @@ public class CommandTests
 	public void HourTest()
 	{
 		BitlyCommandHandler bch = new BitlyCommandHandler();
+		HourCommand bad = new HourCommand();
+		assertEquals("Result", "Error. No user is currently logged in. Please login to get started.", bch.execute(bad));
 		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
 		bch.execute(lgC);
+		HourCommand none = new HourCommand();
+		assertEquals("Result", "There are no items in your watch list! Add links to view their clicks.", bch.execute(none));
 		WatchCommand wc = new WatchCommand("http://bit.ly/We32BU");
 		WatchCommand wc1 = new WatchCommand("http://yhoo.it/Wm8MUR");
 		WatchCommand wc2 = new WatchCommand("http://on.natgeo.com/YheKb9");
@@ -95,6 +100,34 @@ public class CommandTests
 		bch.execute(wc3);
 		HourCommand hc = new HourCommand();
 		String expected = "Sorted by Clicks in the Last Hour" +
+				"\n-------------------------------" +
+				"\nhttp://bitly.com/YUI5ck	:	119" +
+				"\nhttp://bit.ly/We32BU	:	6" +
+				"\nhttp://yhoo.it/Wm8MUR	:	2" +
+				"\nhttp://on.natgeo.com/YheKb9	:	1";
+		assertEquals("Result", expected, bch.execute(hc));
+	}
+	
+	@Test
+	public void WeekTest()
+	{
+		BitlyCommandHandler bch = new BitlyCommandHandler();
+		WeekCommand bad = new WeekCommand();
+		assertEquals("Result", "Error. No user is currently logged in. Please login to get started.", bch.execute(bad));
+		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
+		bch.execute(lgC);
+		WeekCommand none = new WeekCommand();
+		assertEquals("Result", "There are no items in your watch list! Add links to view their clicks.", bch.execute(none));
+		WatchCommand wc = new WatchCommand("http://bit.ly/We32BU");
+		WatchCommand wc1 = new WatchCommand("http://yhoo.it/Wm8MUR");
+		WatchCommand wc2 = new WatchCommand("http://on.natgeo.com/YheKb9");
+		WatchCommand wc3 = new WatchCommand("http://bitly.com/YUI5ck");
+		bch.execute(wc);
+		bch.execute(wc1);
+		bch.execute(wc2);
+		bch.execute(wc3);
+		WeekCommand hc = new WeekCommand();
+		String expected = "Sorted by Clicks in the Last Week" +
 				"\n-------------------------------" +
 				"\nhttp://bitly.com/YUI5ck	:	119" +
 				"\nhttp://bit.ly/We32BU	:	6" +
