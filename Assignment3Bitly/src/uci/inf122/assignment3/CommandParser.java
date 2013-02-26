@@ -125,6 +125,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.WEEK.toString()))
 		{
+			currCommand = new HourCommand();
 			isCommand = true;
 		}
 		else
