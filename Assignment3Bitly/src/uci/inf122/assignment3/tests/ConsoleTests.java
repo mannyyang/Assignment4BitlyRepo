@@ -2,15 +2,10 @@ package uci.inf122.assignment3.tests;
 
 import static org.junit.Assert.*;
 
-import java.io.ByteArrayInputStream;
-
-import org.junit.Ignore;
 import org.junit.Test;
 
 import uci.inf122.assignment3.CommandParser;
 import uci.inf122.assignment3.commands.LogoutCommand;
-import uci.inf122.assignment3.main.BitlyConsole;
-import uci.inf122.assignment3.main.Main;
 
 public class ConsoleTests 
 {
@@ -56,20 +51,6 @@ public class ConsoleTests
 		CommandParser cp = new CommandParser();
 		cp.setCommand(new LogoutCommand());
 		assertEquals("Result", "No user is currently logged in. Please login first.", cp.executeCommand());
-	}
-	
-	@Test
-	public void mainTest()
-	{
-		CommandParser cp = new CommandParser();
-		BitlyConsole bc = new BitlyConsole(cp);
-		
-		bc.run();
-		
-		ByteArrayInputStream in = new ByteArrayInputStream("LOGIN".getBytes());
-		System.setIn(in);
-		
-		
 	}
 
 }
