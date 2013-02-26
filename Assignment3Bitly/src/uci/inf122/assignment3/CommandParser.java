@@ -3,6 +3,7 @@ package uci.inf122.assignment3;
 import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.Command;
 import uci.inf122.assignment3.commands.ExpandCommand;
+import uci.inf122.assignment3.commands.HourCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
 import uci.inf122.assignment3.commands.UnwatchCommand;
@@ -119,6 +120,7 @@ public class CommandParser
 		}
 		else if (c.equals(Commands.HOUR.toString()))
 		{
+			currCommand = new HourCommand();
 			isCommand = true;
 		}
 		else if (c.equals(Commands.WEEK.toString()))

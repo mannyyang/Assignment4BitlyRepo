@@ -8,6 +8,7 @@ import org.junit.Test;
 import uci.inf122.assignment3.BitlyCommandHandler;
 import uci.inf122.assignment3.commands.BitMarkCommand;
 import uci.inf122.assignment3.commands.ExpandCommand;
+import uci.inf122.assignment3.commands.HourCommand;
 import uci.inf122.assignment3.commands.LoginCommand;
 import uci.inf122.assignment3.commands.LogoutCommand;
 import uci.inf122.assignment3.commands.UnwatchCommand;
@@ -76,7 +77,30 @@ public class CommandTests
 		assertEquals("Result", "The Bitly link: http://yhoo.it/Wm8MUR has been removed from the watch list.", bch.execute(uwc));
 		UnwatchCommand uwcBad = new UnwatchCommand("http://bit.ly/THISISABADURL");
 		assertEquals("Result", "The Bitly link does not exist in the list. Please try again.", bch.execute(uwcBad));
-		
+	}
+	
+	@Test
+	public void HourTest()
+	{
+		BitlyCommandHandler bch = new BitlyCommandHandler();
+		LoginCommand lgC = new LoginCommand("heyitsmanuel@gmail.com", "azn1pride");
+		bch.execute(lgC);
+		WatchCommand wc = new WatchCommand("http://bit.ly/We32BU");
+		WatchCommand wc1 = new WatchCommand("http://yhoo.it/Wm8MUR");
+		WatchCommand wc2 = new WatchCommand("http://on.natgeo.com/YheKb9");
+		WatchCommand wc3 = new WatchCommand("http://bitly.com/YUI5ck");
+		bch.execute(wc);
+		bch.execute(wc1);
+		bch.execute(wc2);
+		bch.execute(wc3);
+		HourCommand hc = new HourCommand();
+		String expected = "Sorted by Clicks in the Last Hour" +
+				"\n-------------------------------" +
+				"\nhttp://bitly.com/YUI5ck	:	119" +
+				"\nhttp://bit.ly/We32BU	:	6" +
+				"\nhttp://yhoo.it/Wm8MUR	:	2" +
+				"\nhttp://on.natgeo.com/YheKb9	:	1";
+		assertEquals("Result", expected, bch.execute(hc));
 	}
 	
 }

@@ -97,6 +97,37 @@ public class BitlyCommandHandler
 		return false;
 	}
 	
+	public String getClicks(String shortURL, String sortType)
+	{
+		String stringURL = "https://api-ssl.bitly.com/v3/link/clicks";
+		String accessToken = token.getToken();
+		String charset = "UTF-8";
+		String format = "xml";
+		String timezone = "America/New_York";
+		String units = "1";
+		String result = "";
+		
+		try 
+		{
+			String queryToken = String.format("access_token=%s&link=%s&timezone=%s&unit=%s&units=%s&format=%s",
+					URLEncoder.encode(accessToken, charset),
+					URLEncoder.encode(shortURL, charset),
+					URLEncoder.encode(timezone, charset),
+					URLEncoder.encode(sortType, charset),
+					URLEncoder.encode(units, charset),
+					URLEncoder.encode(format, charset));
+
+			url = new URL(stringURL + "?" + queryToken);
+			
+			result = url.toString();
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		} 
+		return result;
+	}
+	
 	public String getURL(String URLAction, String URLType, String actualURL)
 	{
 		String stringURL = "https://api-ssl.bitly.com/v3/" + URLAction;
@@ -116,15 +147,10 @@ public class BitlyCommandHandler
 			
 			result = url.toString();
 		} 
-		catch (UnsupportedEncodingException e) 
+		catch (Exception e) 
 		{
 			e.printStackTrace();
 		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		} 
-
 		return result;
 	}
 	
@@ -143,6 +169,11 @@ public class BitlyCommandHandler
 		return loggedIn;
 	}
 
+	public ArrayList<String> getBitlyList()
+	{
+		return bitlyList;
+	}
+	
 	public void addBitly(String shortURL)
 	{
 		bitlyList.add(shortURL);

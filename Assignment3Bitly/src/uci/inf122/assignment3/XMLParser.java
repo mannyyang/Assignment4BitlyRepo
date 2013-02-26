@@ -24,15 +24,7 @@ public class XMLParser
 			doc = docBuilder.parse(xml);
 			doc.getDocumentElement().normalize();
 		} 
-		catch (ParserConfigurationException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (SAXException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
